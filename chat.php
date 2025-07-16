@@ -30,9 +30,35 @@
 
       </div>
       <form action="#" class="typing-area">
-        <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $user_id; ?>" hidden>
-        <input type="text" name="message" class="input-field" placeholder="Type a message here..." autocomplete="off">
-        <button><i class="fab fa-telegram-plane"></i></button>
+      <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $user_id; ?>" hidden>
+      <div class="emoji-container">
+        <button type="button" id="emoji-btn">
+          <i class="far fa-smile"></i>
+        </button>
+        <div id="emoji-picker">
+          <span class="emoji">😃</span>
+          <span class="emoji">😅</span>
+          <span class="emoji">😉</span>
+          <span class="emoji">🥰</span>
+          <span class="emoji">🤔</span>
+          <span class="emoji">😡</span>
+          <span class="emoji">🎉</span>
+          <span class="emoji">🔥</span>
+          <span class="emoji">💯</span>
+          <span class="emoji">🥳</span>
+          <span class="emoji">🤗</span>
+          <span class="emoji">😴</span>
+          <span class="emoji">🤩</span>
+          <span class="emoji">😇</span>
+        </div>
+      </div>
+      <input type="file" name="media" id="media-input" accept="image/*,video/*" style="display:none;">
+      <label for="media-input" class="media-btn" style="cursor:pointer;">
+        <i class="fas fa-paperclip"></i>
+      </label>
+      <input type="text" name="message" class="input-field" placeholder="Type a message here..." autocomplete="off">
+      <button type="submit"><i class="fab fa-telegram-plane"></i></button>
+    </form>
       </form>
     </section>
   </div>

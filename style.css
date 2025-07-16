@@ -743,3 +743,56 @@ body{
     display: flex;
   }
 }
+
+
+
+.emoji-container {
+  position: relative;
+  display: inline-block;
+}
+
+#emoji-picker {
+  display: none;
+  position: absolute;
+  left: 0; /* à droite du bouton emoji */
+  top: -100px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  min-width: 220px;
+  max-width: 300px;
+  max-height: 120px; 
+  overflow-y: auto;       /* Active le scroll si besoin */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+
+#emoji-btn i {
+  color: rgba(1, 9, 24, 0.781); /* bleu */
+  font-size: 24px;
+  align-items: center;
+}
+
+#emoji-btn {
+ background: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+#emoji-picker .emoji {
+  font-size: 22px;
+  cursor: pointer;
+  transition: background 0.2s;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+#emoji-picker .emoji:hover {
+  background: #f0f0f0;
+}
