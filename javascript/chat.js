@@ -6,8 +6,48 @@ const emojiBtn = document.getElementById("emoji-btn");
 const emojiPicker = document.getElementById("emoji-picker");
 
 form.onsubmit = (e)=>{
-    
-    e.preventDefault();
+    e.preventDefault();  // Empêche le rechargement
+
+    // Préparer les données à envoyer
+    const formData = new FormData(form);
+
+    // Ne rien faire si aucun contenu texte ni fichier
+    if (inputField.value.trim() === "" && !form.media.files.length) {
+        return;
+    }
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "php/insert-chat.php", true);
+    xhr.onload = ()=>{
+      if(xhr.readyState === XMLHttpRequest.DONE){
+          if(xhr.status === 200){
+              inputField.value = "";
+              form.media.value = ""; // Reset fichier
+              scrollToBottom();
+          }
+      }
+    }
+    const file = form.media.files[0];
+if (file) {
+    const fileUrl = URL.createObjectURL(file);
+    const fileType = file.type;
+
+    const preview = document.createElement("div");
+    preview.classList.add("chat", "outgoing");
+
+    if (fileType.startsWith("image/")) {
+        preview.innerHTML = `<div class="details"><img src="${fileUrl}" class="preview-img" /></div>`;
+    } else if (fileType.startsWith("video/")) {
+        preview.innerHTML = `<div class="details"><video src="${fileUrl}" class="preview-video" controls></video></div>`;
+    } else {
+        preview.innerHTML = `<div class="details"><a href="${fileUrl}" download class="preview-file">📎 Fichier</a></div>`;
+    }
+
+    chatBox.appendChild(preview);
+    scrollToBottom();
+}
+
+    xhr.send(formData);
 }
 
 // Traitement des emojis
@@ -27,9 +67,13 @@ emojiPicker.onclick = (e) => {
         inputField.value += e.target.textContent;
         emojiPicker.style.display = "none";
         inputField.focus();
+
+        // ⚠️ Vérifie si un emoji est suffisant pour envoyer
+        if (inputField.value.trim() !== "") {
+            form.requestSubmit();  // ✅ déclenche le submit proprement
+        }
     }
 };
-
 // Ferme le sélecteur si on clique ailleurs
 document.addEventListener("click", function(e){
     if(!emojiPicker.contains(e.target) && e.target !== emojiBtn){
@@ -39,6 +83,7 @@ document.addEventListener("click", function(e){
 
 inputField.focus();
 inputField.onkeyup = ()=>{
+    
     if(inputField.value != ""){
         sendBtn.classList.add("active");
     }else{
@@ -46,20 +91,7 @@ inputField.onkeyup = ()=>{
     }
 }
 
-sendBtn.onclick = ()=>{
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "php/insert-chat.php", true);
-    xhr.onload = ()=>{
-      if(xhr.readyState === XMLHttpRequest.DONE){
-          if(xhr.status === 200){
-              inputField.value = "";
-              scrollToBottom();
-          }
-      }
-    }
-    let formData = new FormData(form);
-    xhr.send(formData);
-}
+
 chatBox.onmouseenter = ()=>{
     chatBox.classList.add("active");
 }

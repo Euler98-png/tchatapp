@@ -31,8 +31,10 @@ CREATE TABLE `messages` (
   `msg_id` int(11) NOT NULL,
   `incoming_msg_id` int(255) NOT NULL,
   `outgoing_msg_id` int(255) NOT NULL,
-  `msg` varchar(1000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `msg` varchar(1000) NOT NULL,
+  `msg_type` enum('text','image','video') DEFAULT 'text',
+  `file_path` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
